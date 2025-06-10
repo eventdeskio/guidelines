@@ -1,0 +1,69 @@
+= Guidelines
+Dawood Khan <dawood@herocore.io>
+:toc: left
+:sectnums:
+
+== Coding Guidelines
+
+[quote]
+Good code should read like a story; not like a puzzle.
+
+=== Casing
+==== Typescript
+. _PascalCase_ - Classes
+. _camelCase_ - variables, functions
+. _snake_case_ - db columns, types
+
+=== Comments
+. Use multi-line comment format always (even if you are commenting a single line).
+
+=== Formatting
+==== File Header
+Use below file header as template for all files.
+
+[code, typescript]
+----
+/**
+ * @copyright 2025 Herocore LLC, All Rights Reserved.
+ * @license This code is licensed under the MIT license. See the LICENSE file 
+ * in the project root for full license information.
+ * @fileoverview API based test driver for the CrudEngine library using Express.js
+ */
+----
+
+==== Line Spacing
+. Separate logical sections of code with blank lines; exactly one blank line between sections.
+
+==== Tab/Space
+. ???
+
+==== Semicolon/No Semicolon
+. ???
+
+=== Error Handling
+==== Typescript
+. Always throw object of type `Error`. Add ESLint rule for the same. link:https://typescript-eslint.io/rules/no-throw-literal/[ref]
+. Throw a new `Error` with `{cause: oldError}` instead of re-throwing `oldError`
+. Use constant error messages (for log monitoring/error tracking tools). Use `Utils.BaseError` instead of plain `Error` and provide variable data as `context`. Example `throw BaseError("Insert Failed", { causeError, {recordId} })`
++
+NOTE: Only provide relevant info in the context. Not too little; not too much.
++
+. Don’t throw errors for problems that are expected to happen. Have a flag `success` and return error message to the user in case of a failure (instead of crashing the app).
+
+NOTE: Refer link:https://medium.com/with-orus/the-5-commandments-of-clean-error-handling-in-typescript-93a9cbdf1af5[5 Commandments of Clean Error Handling in Typescript | Medium]
+
+=== Version Control
+. Always *diff merge* the code; don't overwrite files.
+
+
+== Other Guidelines
+=== Use of LLMs
+. Use IDE integrated way; not the "chat window" mode. If you happens to use "chat window", give it as much as *context* as possible.
+
+=== Code Review Request
+For a change to be considered for review, below are the mandates.
+
+. Formatting/Linting
+. Code should comply with all Coding Guidelines
+. Code must be unit-tested and proof of unit-testing must be attached.
+. If it is new code or if the changes are huge, the author must walkthrough the code.
